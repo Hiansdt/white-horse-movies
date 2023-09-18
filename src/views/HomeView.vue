@@ -1,20 +1,23 @@
 <script setup>
 
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { RouterLink } from 'vue-router';
 import quotesApi from '../api/quotes.js';
 
 const QuotesApi = new quotesApi();
 
-const quote = ref()
+const dailyQuote = ref()
 
 const options = ref(['sad', 'happy', 'angry', 'excited', 'tired', 'bored', 'unmotivated'])
 
 async function getquotes() {
-  quote.value = await QuotesApi.getQuotes('happiness');
-  console.log(quote.value);
+  dailyQuote.value = await QuotesApi.getQuotes('happiness');
 }
 
-getquotes();
+onMounted(() => {
+  console.log('a')
+  getquotes()
+})
 
 </script>
 
@@ -24,15 +27,15 @@ getquotes();
     <hr>
     <div class="dayQuote">
       <h2>Quote of the day</h2>
-      <div class="quoteAuthor">
-        <p>" {{ quote[0].quote }} " </p>
-        <p>- {{ quote[0].author }}</p>
+      <div class="quoteAuthor" v-if="dailyQuote">
+        <p>" {{ dailyQuote[0].quote }} " </p>
+        <p>- {{ dailyQuote[0].author }}</p>
       </div>
     </div>
     <div class="options">
-      <div class="option" v-for="option, index in options" :key="index">
-        {{ option }}
-      </div>
+        <router-link :to="'/' + option" class="option optionGlow" v-for="option, index in options" :key="index">
+          <span>{{ option }}</span>
+        </router-link>
     </div>
     <footer>
       <button>Movies</button>
@@ -51,6 +54,10 @@ main {
   color: aliceblue;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
 h1 {
   margin-top: 1%;
   margin-bottom: 1%;
@@ -87,14 +94,14 @@ h2 {
   margin-bottom: 2%;
 }
 
-.dayQuote > :nth-child(2) {
+.dayQuote> :nth-child(2) {
   display: flex;
   text-align: center;
   justify-content: center;
   width: 100%;
 }
 
-.dayQuote > :nth-child(2) > :nth-child(1) {
+.dayQuote> :nth-child(2)> :nth-child(1) {
   margin-right: 1%;
 }
 
@@ -123,7 +130,7 @@ button {
 
 button:hover {
   transform: scale(1.05);
-  animation: 0.3s forwards optionScale;
+  animation: 0.3s forwards navigationScale;
 }
 
 hr {
@@ -150,11 +157,143 @@ hr {
 }
 
 .option:hover {
-  background-color: #006466;
+  box-shadow: 1px 1px 35px #00b8bb;
   cursor: pointer;
   transform: scale(1.1);
-  animation: 0.3s forwards optionScale;
+  animation: 0.3s infinite optionScale; 
 }
+
+.options> :nth-child(1):hover{
+  background-color: #008fa8;
+  animation: 1s infinite optionGlow1;
+}
+
+.options> :nth-child(2):hover{
+  background-color: #10ff08;
+  animation: 1s infinite optionGlow2;
+}
+
+.options> :nth-child(3):hover{
+  background-color: #00b8bb;
+  animation: 1s infinite optionGlow3;
+
+}
+
+.options> :nth-child(4):hover{
+  background-color: #00b8bb;
+}
+
+.options> :nth-child(5):hover{
+  background-color: #00b8bb;
+}
+
+.options> :nth-child(6):hover{
+  background-color: #00b8bb;
+}
+
+.options> :nth-child(7):hover{
+  background-color: #00b8bb;
+}
+
+
+@keyframes optionGlow1 {
+  0% {
+    box-shadow: 1px 1px 25px #0ec1ce;
+  }
+
+  50% {
+    box-shadow: 1px 1px 25px rgb(131, 213, 245);
+  }
+
+  100% {
+    box-shadow: 1px 1px 25px #0ec1ce;
+  }
+}
+
+@keyframes optionGlow2 {
+  0% {
+    box-shadow: 1px 1px 25px #ff6600;
+  }
+
+  50% {
+    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+  }
+
+  100% {
+    box-shadow: 1px 1px 25px #bb5a00;
+  }
+}
+
+@keyframes optionGlow3 {
+  0% {
+    box-shadow: 1px 1px 25px #ff6600;
+  }
+
+  50% {
+    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+  }
+
+  100% {
+    box-shadow: 1px 1px 25px #bb5a00;
+  }
+}
+
+@keyframes optionGlow4 {
+  0% {
+    box-shadow: 1px 1px 25px #ff6600;
+  }
+
+  50% {
+    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+  }
+
+  100% {
+    box-shadow: 1px 1px 25px #bb5a00;
+  }
+}
+
+@keyframes optionGlow5 {
+  0% {
+    box-shadow: 1px 1px 25px #ff6600;
+  }
+
+  50% {
+    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+  }
+
+  100% {
+    box-shadow: 1px 1px 25px #bb5a00;
+  }
+}
+
+@keyframes optionGlow6 {
+  0% {
+    box-shadow: 1px 1px 25px #ff6600;
+  }
+
+  50% {
+    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+  }
+
+  100% {
+    box-shadow: 1px 1px 25px #bb5a00;
+  }
+}
+
+@keyframes optionGlow7 {
+  0% {
+    box-shadow: 1px 1px 25px #ff6600;
+  }
+
+  50% {
+    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+  }
+
+  100% {
+    box-shadow: 1px 1px 25px #bb5a00;
+  }
+}
+
 
 @keyframes optionScale {
   0% {
@@ -163,6 +302,16 @@ hr {
 
   100% {
     transform: scale(1.1);
+  }
+}
+
+@keyframes navigationScale {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.15);
   }
 }
 </style>
