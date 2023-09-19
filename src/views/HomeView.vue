@@ -8,7 +8,7 @@ const QuotesApi = new quotesApi();
 
 const dailyQuote = ref()
 
-const options = ref(['sad', 'happy', 'angry', 'excited', 'tired', 'bored', 'unmotivated'])
+const options = ref(['sad', 'happy', 'angry', 'excited', 'bored', 'unmotivated', 'anxious'])
 
 async function getquotes() {
   dailyQuote.value = await QuotesApi.getQuotes('happiness');
@@ -33,9 +33,9 @@ onMounted(() => {
       </div>
     </div>
     <div class="options">
-        <router-link :to="'/' + option" class="option optionGlow" v-for="option, index in options" :key="index">
+      <router-link :to="'/' + option" class="option optionGlow" v-for="option, index in options" :key="index">
           <span>{{ option }}</span>
-        </router-link>
+      </router-link>
     </div>
     <footer>
       <button>Movies</button>
@@ -58,6 +58,7 @@ a {
   text-decoration: none;
   color: white;
 }
+
 h1 {
   margin-top: 1%;
   margin-bottom: 1%;
@@ -144,164 +145,162 @@ hr {
   gap: 2%;
   justify-content: center;
   width: 100%;
+  height: 100%;
 }
 
 .option {
+  border: 1px solid white;
   display: flex;
-  width: 11%;
-  height: 150px;
   text-align: center;
   justify-content: center;
   align-items: center;
-  border: 1px solid white;
-}
-
-.option:hover {
-  box-shadow: 1px 1px 35px #00b8bb;
+  width: 11%;
+  height: 20%;
   cursor: pointer;
-  transform: scale(1.1);
-  animation: 0.3s infinite optionScale; 
 }
 
-.options> :nth-child(1):hover{
-  background-color: #008fa8;
+.option > span {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.options> :nth-child(1):hover {
+  background-color: #006a7c;
   animation: 1s infinite optionGlow1;
 }
 
-.options> :nth-child(2):hover{
-  background-color: #10ff08;
+.options> :nth-child(2):hover {
+  background-color: #c4c100;
   animation: 1s infinite optionGlow2;
 }
 
-.options> :nth-child(3):hover{
-  background-color: #00b8bb;
+.options> :nth-child(3):hover {
+  background-color: #c40031;
   animation: 1s infinite optionGlow3;
+}
+
+.options> :nth-child(4):hover {
+  background-color: rgb(253, 95, 33);
+  animation: 1s infinite optionGlow4;
 
 }
 
-.options> :nth-child(4):hover{
-  background-color: #00b8bb;
+.options> :nth-child(5):hover {
+  background-color: #1a4050;
+  animation: 1s infinite optionGlow5;
+
 }
 
-.options> :nth-child(5):hover{
-  background-color: #00b8bb;
+.options> :nth-child(6):hover {
+  background-color: #552e2e;
+  animation: 1s infinite optionGlow6;
+
 }
 
-.options> :nth-child(6):hover{
-  background-color: #00b8bb;
-}
-
-.options> :nth-child(7):hover{
-  background-color: #00b8bb;
+.options> :nth-child(7):hover {
+  background-color: #4d0c8a;
+  animation: 1s infinite optionGlow7;
 }
 
 
 @keyframes optionGlow1 {
   0% {
-    box-shadow: 1px 1px 25px #0ec1ce;
+    box-shadow: 1px 1px 10px #0ec1ce;
   }
 
   50% {
-    box-shadow: 1px 1px 25px rgb(131, 213, 245);
+    box-shadow: 1px 1px 15px rgb(131, 213, 245);
   }
 
   100% {
-    box-shadow: 1px 1px 25px #0ec1ce;
+    box-shadow: 1px 1px 10px #0ec1ce;
   }
 }
 
 @keyframes optionGlow2 {
   0% {
-    box-shadow: 1px 1px 25px #ff6600;
+    box-shadow: 1px 1px 10px #cec10e;
   }
 
   50% {
-    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+    box-shadow: 1px 1px 15px rgb(245, 224, 131);
   }
 
   100% {
-    box-shadow: 1px 1px 25px #bb5a00;
+    box-shadow: 1px 1px 10px #cec10e;
   }
 }
 
 @keyframes optionGlow3 {
   0% {
-    box-shadow: 1px 1px 25px #ff6600;
+    box-shadow: 1px 1px 10px #ce0e38;
   }
 
   50% {
-    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+    box-shadow: 1px 1px 15px rgb(245, 131, 131);
   }
 
   100% {
-    box-shadow: 1px 1px 25px #bb5a00;
+    box-shadow: 1px 1px 10px #ce0e38;
   }
 }
 
 @keyframes optionGlow4 {
   0% {
-    box-shadow: 1px 1px 25px #ff6600;
+    box-shadow: 1px 1px 10px #ff5506;
   }
 
   50% {
-    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+    box-shadow: 1px 1px 15px rgb(255, 122, 70);
   }
 
   100% {
-    box-shadow: 1px 1px 25px #bb5a00;
+    box-shadow: 1px 1px 10px #ff5506;
   }
 }
 
 @keyframes optionGlow5 {
   0% {
-    box-shadow: 1px 1px 25px #ff6600;
+    box-shadow: 1px 1px 15px #424242;
   }
 
   50% {
-    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+    box-shadow: 1px 1px 20px #425157;
   }
 
   100% {
-    box-shadow: 1px 1px 25px #bb5a00;
+    box-shadow: 1px 1px 15px #424242;
   }
 }
 
 @keyframes optionGlow6 {
   0% {
-    box-shadow: 1px 1px 25px #ff6600;
+    box-shadow: 1px 1px 15px #9b3624;
   }
 
   50% {
-    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+    box-shadow: 1px 1px 20px rgb(97, 58, 58);
   }
 
   100% {
-    box-shadow: 1px 1px 25px #bb5a00;
+    box-shadow: 1px 1px 15px #9b3624;
   }
 }
 
 @keyframes optionGlow7 {
   0% {
-    box-shadow: 1px 1px 25px #ff6600;
+    box-shadow: 1px 1px 15px #6607be;
   }
 
   50% {
-    box-shadow: 1px 1px 25px rgb(245, 182, 131);
+    box-shadow: 1px 1px 20px #8d40d4;
   }
 
   100% {
-    box-shadow: 1px 1px 25px #bb5a00;
-  }
-}
-
-
-@keyframes optionScale {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(1.1);
+    box-shadow: 1px 1px 15px #790ddf;
   }
 }
 
