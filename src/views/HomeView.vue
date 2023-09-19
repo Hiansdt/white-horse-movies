@@ -3,19 +3,19 @@
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router';
 import quotesApi from '../api/quotes.js';
+import FooterComponentVue from '../components/FooterComponent.vue';
 
 const QuotesApi = new quotesApi();
 
 const dailyQuote = ref()
 
-const options = ref(['sad', 'happy', 'angry', 'excited', 'bored', 'unmotivated', 'anxious'])
+const options = ref(['SAD', 'HAPPY', 'ANGRY', 'EXCITED', 'BORED', 'UNMOTIVATED', 'ANXIOUS'])
 
 async function getquotes() {
   dailyQuote.value = await QuotesApi.getQuotes('happiness');
 }
 
 onMounted(() => {
-  console.log('a')
   getquotes()
 })
 
@@ -26,22 +26,18 @@ onMounted(() => {
     <h1>How are you feeling right now?</h1>
     <hr>
     <div class="dayQuote">
-      <h2>Quote of the day</h2>
+      <h2>QUOTE OF THE DAY</h2>
       <div class="quoteAuthor" v-if="dailyQuote">
         <p>" {{ dailyQuote[0].quote }} " </p>
         <p>- {{ dailyQuote[0].author }}</p>
       </div>
     </div>
     <div class="options">
-      <router-link :to="'/' + option" class="option optionGlow" v-for="option, index in options" :key="index">
+      <router-link :to="'/' + option.toLowerCase()" class="option optionGlow" v-for="option, index in options" :key="index">
           <span>{{ option }}</span>
       </router-link>
     </div>
-    <footer>
-      <button>Movies</button>
-      <button>API's</button>
-      <button>About</button>
-    </footer>
+  <footer-component-vue/>
   </main>
 </template>
 
@@ -51,39 +47,30 @@ main {
   flex-direction: column;
   align-items: center;
   height: 95vh;
-  color: aliceblue;
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 h1 {
   margin-top: 1%;
   margin-bottom: 1%;
-  font-family: 'Courier New', Courier, monospace;
   font-weight: 600;
   font-size: x-large;
-  color: aliceblue;
 }
 
 h2 {
-  font-family: 'Courier New', Courier, monospace;
   font-weight: 400;
   font-size: large;
   color: aliceblue;
   text-align: center;
 }
 
-.p {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  font-size: smaller;
+p {
+  font-size: large;
+  font-weight: 500;
 }
 
 .dayQuote {
@@ -106,34 +93,6 @@ h2 {
   margin-right: 1%;
 }
 
-footer {
-  position: absolute;
-  bottom: 5px;
-  width: 100%;
-  height: 5vh;
-  display: flex;
-  gap: 5%;
-}
-
-button {
-  width: 5%;
-  height: 100%;
-  border: none;
-  padding: none;
-  color: rgb(255, 255, 255);
-  background-color: #00000000;
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: 400;
-  font-size: small;
-  cursor: pointer;
-  margin-left: 2%;
-}
-
-button:hover {
-  transform: scale(1.05);
-  animation: 0.3s forwards navigationScale;
-}
-
 hr {
   width: 100%;
 }
@@ -145,18 +104,23 @@ hr {
   gap: 2%;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: fit-content;
 }
 
 .option {
-  border: 1px solid white;
+  border: 1px solid rgb(168, 168, 168);
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
   width: 11%;
-  height: 20%;
+  height: 20vh;
   cursor: pointer;
+}
+
+.option:hover {
+  border: 1px solid white;
+  color: white;
 }
 
 .option > span {

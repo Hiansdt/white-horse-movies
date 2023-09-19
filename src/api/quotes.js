@@ -8,7 +8,7 @@ const auth = {
 
 export default class quotesApi {
     async getQuotes(category) {
-        const { data } = await axios.get(`quotes?category=${category}`, auth)
+        const { data } = await axios.get(`https://api.api-ninjas.com/v1/quotes?category=${category}`, auth)
         return data
     }
 }
