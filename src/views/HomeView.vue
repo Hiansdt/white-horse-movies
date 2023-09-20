@@ -9,7 +9,7 @@ const QuotesApi = new quotesApi();
 
 const dailyQuote = ref()
 
-const options = ref(['SAD', 'HAPPY', 'ANGRY', 'EXCITED', 'BORED', 'UNMOTIVATED', 'ANXIOUS'])
+const options = ref(['ANGRY', 'ANXIOUS', 'SAD', 'UNMOTIVATED', 'BORED', 'HAPPY', 'EXCITED'])
 
 async function getquotes() {
   dailyQuote.value = await QuotesApi.getQuotes('happiness');
@@ -132,97 +132,104 @@ hr {
 }
 
 .options> :nth-child(1):hover {
-  background-color: #006a7c;
+  background-color: #c40031;
+  /* c40031 */
   animation: 1s infinite optionGlow1;
 }
 
 .options> :nth-child(2):hover {
-  background-color: #c4c100;
+  background-color: #4d0c8a;
+  /* c4c100 */
   animation: 1s infinite optionGlow2;
 }
 
 .options> :nth-child(3):hover {
-  background-color: #c40031;
+  background-color: #006a7c;
+  /* c40031 */
   animation: 1s infinite optionGlow3;
 }
 
 .options> :nth-child(4):hover {
-  background-color: rgb(253, 95, 33);
+  background-color: #552e2e;
+  /* rgb(253, 95, 33) */
   animation: 1s infinite optionGlow4;
 
 }
 
 .options> :nth-child(5):hover {
   background-color: #1a4050;
+  /* 1a4050 */
   animation: 1s infinite optionGlow5;
 
 }
 
 .options> :nth-child(6):hover {
-  background-color: #552e2e;
+  background-color: #c4c100;
+  /* 552e2e */
   animation: 1s infinite optionGlow6;
 
 }
 
 .options> :nth-child(7):hover {
-  background-color: #4d0c8a;
+  background-color: rgb(253, 95, 33);
+  /* 4d0c8a */
   animation: 1s infinite optionGlow7;
 }
 
 
-@keyframes optionGlow1 {
-  0% {
-    box-shadow: 1px 1px 10px #0ec1ce;
-  }
-
-  50% {
-    box-shadow: 1px 1px 15px rgb(131, 213, 245);
-  }
-
-  100% {
-    box-shadow: 1px 1px 10px #0ec1ce;
-  }
-}
-
-@keyframes optionGlow2 {
-  0% {
-    box-shadow: 1px 1px 10px #cec10e;
-  }
-
-  50% {
-    box-shadow: 1px 1px 15px rgb(245, 224, 131);
-  }
-
-  100% {
-    box-shadow: 1px 1px 10px #cec10e;
-  }
-}
-
 @keyframes optionGlow3 {
   0% {
-    box-shadow: 1px 1px 10px #ce0e38;
+    box-shadow: 1px 1px 15px #07737a;
   }
 
   50% {
-    box-shadow: 1px 1px 15px rgb(245, 131, 131);
+    box-shadow: 1px 1px 20px rgb(0, 183, 255);
   }
 
   100% {
-    box-shadow: 1px 1px 10px #ce0e38;
+    box-shadow: 1px 1px 15px #07737a;
   }
 }
 
-@keyframes optionGlow4 {
+@keyframes optionGlow6 {
   0% {
-    box-shadow: 1px 1px 10px #ff5506;
+    box-shadow: 1px 1px 15px #fff783;
   }
 
   50% {
-    box-shadow: 1px 1px 15px rgb(255, 122, 70);
+    box-shadow: 1px 1px 20px rgb(255, 208, 0);
   }
 
   100% {
-    box-shadow: 1px 1px 10px #ff5506;
+    box-shadow: 1px 1px 15px #fff783;
+  }
+}
+
+@keyframes optionGlow1 {
+  0% {
+    box-shadow: 1px 1px 15px #b82d4b;
+  }
+
+  50% {
+    box-shadow: 1px 1px 20px rgb(255, 0, 0);
+  }
+
+  100% {
+    box-shadow: 1px 1px 15px #b82d4b;
+  }
+}
+
+@keyframes optionGlow7 {
+  0% {
+    box-shadow: 1px 1px 15px #be5828;
+  }
+
+  50% {
+    box-shadow: 1px 1px 20px rgb(255, 72, 0);
+  }
+
+  100% {
+    box-shadow: 1px 1px 15px #be5828;
   }
 }
 
@@ -240,13 +247,13 @@ hr {
   }
 }
 
-@keyframes optionGlow6 {
+@keyframes optionGlow4 {
   0% {
     box-shadow: 1px 1px 15px #9b3624;
   }
 
   50% {
-    box-shadow: 1px 1px 20px rgb(97, 58, 58);
+    box-shadow: 1px 1px 20px rgb(43, 23, 23);
   }
 
   100% {
@@ -254,17 +261,17 @@ hr {
   }
 }
 
-@keyframes optionGlow7 {
+@keyframes optionGlow2 {
   0% {
-    box-shadow: 1px 1px 15px #6607be;
+    box-shadow: 1px 1px 15px #442164;
   }
 
   50% {
-    box-shadow: 1px 1px 20px #8d40d4;
+    box-shadow: 1px 1px 20px #8400ff;
   }
 
   100% {
-    box-shadow: 1px 1px 15px #790ddf;
+    box-shadow: 1px 1px 15px #442164;
   }
 }
 
