@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, defineProps } from 'vue'
 import { RouterLink } from 'vue-router';
 import quotesApi from '../api/quotes.js';
 import FooterComponentVue from '../components/FooterComponent.vue';
@@ -26,10 +26,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <main :class="mainBackground">
+  <div :class="mainBackground !== '' ? `background ${mainBackground}` : `background`"></div>
+  <main :class="mainBackground !== '' ? 'whiteMain' : null">
     <header>
       <h1>How are you feeling right now?</h1>
-      <a href="https://github.com/Hiansdt" class="git" target="_blank"><img src="../../public/horse.png" alt=""></a>
       <hr>
     </header>
     <div class="dayQuote">
@@ -40,17 +40,17 @@ onMounted(() => {
       </div>
     </div>
     <div class="options">
-      <router-link :to="'/' + option.toLowerCase()" :class="currentHover == option ? 'option optionGlow current' : currentHover == '' ? 'option optionGlow' : 'option optionGlow notCurrent'" v-for="option, index in options" :key="index" @mouseover="mainBackground = option, currentHover = option" @mouseleave="mainBackground = '', currentHover = ''">
+      <router-link :to="'/' + option.toLowerCase()" class="option optionGlow" :id="mainBackground == option ? 'current' : mainBackground == '' ? null : 'notCurrent'" v-for="option, index in options" :key="index" @mouseover="mainBackground = option, currentHover = option" @mouseleave="mainBackground = '', currentHover = ''">
           <span>{{ option }}</span>
       </router-link>
     </div>
-  <footer-component-vue/>
+  <footer-component-vue :class="currentHover !== '' ? 'hovered' : null" :currentHover="currentHover"/>
   </main>
 </template>
 
 <style>
 main {
-  transition: all 0.35s ease-out;
+  transition: all 0.5s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,6 +63,35 @@ main {
 #app {
   width: 100%;
   height: 100%;
+}
+
+.whiteMain {
+  color: white;
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  transition: 0.35s ease-in-out;
+}
+
+@keyframes backgroundCircle {
+  0% {
+    left: 50%;
+    top: 40%;
+    width: 0px;
+    height: 0px;
+    border-radius: 100%;
+  }
+
+  100% {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 header {
@@ -80,13 +109,48 @@ a {
   color: rgb(0, 0, 0);
 }
 
-.notCurrent {
+#notCurrent {
    color: white;
+   border: 1px solid white;
 }
 
 .ANGRY {
  color: white;
- background-color: rgb(145, 0, 0);
+ background-color: rgb(134, 24, 24);
+}
+
+.ANXIOUS {
+ color: white;
+ background-color: rgb(48, 6, 95);
+}
+
+.SAD {
+ color: white;
+ background-color: rgb(24, 103, 134);
+}
+
+.UNMOTIVATED {
+ color: white;
+ background-color: rgb(70, 7, 7);
+}
+
+.BORED {
+ color: white;
+ background-color: rgb(21, 35, 54);
+}
+
+.HAPPY {
+ color: rgb(255, 255, 255);
+ background-color: #d49c00;
+}
+
+.EXCITED {
+ color: white;
+ background-color: rgb(194, 78, 0);
+}
+
+.hovered > button {
+ color: white;
 }
 
 h1 {
@@ -98,17 +162,6 @@ h1 {
 
 img {
   width: 45px;
-}
-
-.git {
-  position: absolute;
-  right: 25px;
-  top: 6px;
-  cursor: pointer ;
-}
-
-.git:hover {
-  transform: scale(1.05);
 }
 
 h2 {
@@ -158,7 +211,7 @@ hr {
 }
 
 .option {
-  border: 1px solid rgb(168, 168, 168);
+  border: 1px solid rgb(184, 184, 184);
   display: flex;
   text-align: center;
   justify-content: center;
@@ -232,7 +285,7 @@ hr {
 
 @keyframes optionGlow3 {
   0% {
-    box-shadow: 1px 1px 15px #07737a;
+    box-shadow: 1px 1px 15px #005f66;
   }
 
   50% {
@@ -240,77 +293,77 @@ hr {
   }
 
   100% {
-    box-shadow: 1px 1px 15px #07737a;
+    box-shadow: 1px 1px 15px #005f66;
   }
 }
 
 @keyframes optionGlow6 {
   0% {
-    box-shadow: 1px 1px 15px #fff783;
+    box-shadow: 1px 1px 15px #ffc583;
   }
 
   50% {
-    box-shadow: 1px 1px 20px rgb(255, 208, 0);
+    box-shadow: 1px 1px 20px rgb(255, 236, 151);
   }
 
   100% {
-    box-shadow: 1px 1px 15px #fff783;
+    box-shadow: 1px 1px 15px #ffc583;
   }
 }
 
 @keyframes optionGlow1 {
   0% {
-    box-shadow: 1px 1px 15px #b82d4b;
+    box-shadow: 1px 1px 15px #e40031;
   }
 
   50% {
-    box-shadow: 1px 1px 20px rgb(255, 0, 0);
+    box-shadow: 1px 1px 20px rgb(255, 120, 120);
   }
 
   100% {
-    box-shadow: 1px 1px 15px #b82d4b;
+    box-shadow: 1px 1px 15px #e40031;
   }
 }
 
 @keyframes optionGlow7 {
   0% {
-    box-shadow: 1px 1px 15px #be5828;
+    box-shadow: 1px 1px 15px #ff2600;
   }
 
   50% {
-    box-shadow: 1px 1px 20px rgb(255, 72, 0);
+    box-shadow: 1px 1px 20px rgb(255, 173, 118);
   }
 
   100% {
-    box-shadow: 1px 1px 15px #be5828;
+    box-shadow: 1px 1px 15px #ff2600;
   }
 }
 
 @keyframes optionGlow5 {
   0% {
-    box-shadow: 1px 1px 15px #424242;
+    box-shadow: 1px 1px 15px #052455;
   }
 
   50% {
-    box-shadow: 1px 1px 20px #425157;
+    box-shadow: 1px 1px 20px #5c7079;
   }
 
   100% {
-    box-shadow: 1px 1px 15px #424242;
+    box-shadow: 1px 1px 15px #052455;
   }
 }
 
 @keyframes optionGlow4 {
   0% {
-    box-shadow: 1px 1px 15px #9b3624;
+    box-shadow: 1px 1px 15px #2c1410;
   }
 
   50% {
-    box-shadow: 1px 1px 20px rgb(43, 23, 23);
+    box-shadow: 1px 1px 20px rgb(146, 58, 58);
   }
 
   100% {
-    box-shadow: 1px 1px 15px #9b3624;
+    box-shadow: 1px 1px 15px #3a1b15;
   }
 }
 
