@@ -17,11 +17,12 @@
 
 footer {
   position: absolute;
-  bottom: 5px;
+  bottom: 0px;
   width: 100%;
   height: 5vh;
   display: flex;
   gap: 5%;
+  background-color: white;
 }
 
 button {

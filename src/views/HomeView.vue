@@ -11,6 +11,10 @@ const dailyQuote = ref()
 
 const options = ref(['ANGRY', 'ANXIOUS', 'SAD', 'UNMOTIVATED', 'BORED', 'HAPPY', 'EXCITED'])
 
+const mainBackground = ref('')
+
+const currentHover = ref('')
+
 async function getquotes() {
   dailyQuote.value = await QuotesApi.getQuotes('happiness');
 }
@@ -22,18 +26,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
-    <h1>How are you feeling right now?</h1>
-    <hr>
+  <main :class="mainBackground">
+    <header>
+      <h1>How are you feeling right now?</h1>
+      <a href="https://github.com/Hiansdt" class="git" target="_blank"><img src="../../public/horse.png" alt=""></a>
+      <hr>
+    </header>
     <div class="dayQuote">
-      <h2>QUOTE OF THE DAY</h2>
+      <br>
       <div class="quoteAuthor" v-if="dailyQuote">
         <p>" {{ dailyQuote[0].quote }} " </p>
         <p>- {{ dailyQuote[0].author }}</p>
       </div>
     </div>
     <div class="options">
-      <router-link :to="'/' + option.toLowerCase()" class="option optionGlow" v-for="option, index in options" :key="index">
+      <router-link :to="'/' + option.toLowerCase()" :class="currentHover == option ? 'option optionGlow current' : currentHover == '' ? 'option optionGlow' : 'option optionGlow notCurrent'" v-for="option, index in options" :key="index" @mouseover="mainBackground = option, currentHover = option" @mouseleave="mainBackground = '', currentHover = ''">
           <span>{{ option }}</span>
       </router-link>
     </div>
@@ -43,10 +50,29 @@ onMounted(() => {
 
 <style>
 main {
+  transition: all 0.35s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 95vh;
+  height: 100vh;
+  width: 99.9%;
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0);
+  width: 100%;
 }
 
 a {
@@ -54,17 +80,41 @@ a {
   color: rgb(0, 0, 0);
 }
 
+.notCurrent {
+   color: white;
+}
+
+.ANGRY {
+ color: white;
+ background-color: rgb(145, 0, 0);
+}
+
 h1 {
-  margin-top: 1%;
-  margin-bottom: 1%;
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
   font-weight: 600;
   font-size: x-large;
+}
+
+img {
+  width: 45px;
+}
+
+.git {
+  position: absolute;
+  right: 25px;
+  top: 6px;
+  cursor: pointer ;
+}
+
+.git:hover {
+  transform: scale(1.05);
 }
 
 h2 {
   font-weight: 400;
   font-size: large;
-  color: aliceblue;
+  color: rgb(255, 255, 255);
   text-align: center;
 }
 
@@ -116,11 +166,14 @@ hr {
   width: 11%;
   height: 20vh;
   cursor: pointer;
+  transition: all 0.35s ease-out;
 }
 
 .option:hover {
   border: 1px solid white;
+  transform: scale(1.1);
   color: white;
+  transition: all 0.35s ease-out;
 }
 
 .option > span {
@@ -132,19 +185,19 @@ hr {
 }
 
 .options> :nth-child(1):hover {
-  background-color: #c40031;
+  background-color: #ff0040;
   /* c40031 */
   animation: 1s infinite optionGlow1;
 }
 
 .options> :nth-child(2):hover {
-  background-color: #4d0c8a;
+  background-color: #6800ca;
   /* c4c100 */
   animation: 1s infinite optionGlow2;
 }
 
 .options> :nth-child(3):hover {
-  background-color: #006a7c;
+  background-color: #0098b3;
   /* c40031 */
   animation: 1s infinite optionGlow3;
 }
@@ -164,14 +217,14 @@ hr {
 }
 
 .options> :nth-child(6):hover {
-  background-color: #c4c100;
+  background-color: #e4e400;
   /* 552e2e */
   animation: 1s infinite optionGlow6;
 
 }
 
 .options> :nth-child(7):hover {
-  background-color: rgb(253, 95, 33);
+  background-color: rgb(255, 88, 22);
   /* 4d0c8a */
   animation: 1s infinite optionGlow7;
 }
