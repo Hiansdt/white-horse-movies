@@ -12,10 +12,14 @@ const quote = ref()
 
 const movie = ref()
 
+const movieImages = ref()
+
 async function getMovieAndQuote() {
     quote.value = await QuotesApi.getQuotes('happiness');
     movie.value =  await MoviesApi.getMovie();
     movie.value = movie.value.results[(Math.random() * movie.value.results.length).toFixed(0)];
+    movieImages.value = await MoviesApi.getMovieImage(movie.value.id)
+    console.log(movie.value)
 }
 
 onMounted(() => {
@@ -35,9 +39,14 @@ onMounted(() => {
         <h1 v-if="quote" class="recommendation">
             And here's a movie recommendation for you:
         </h1>
-        <div class="movie" v-if="movie">
-            {{ movie.title }}
+        <div class="movie" v-if="movieImages">
+            <img :src="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="">
+            <div class="movieInfo">
+                <h2 class="title">{{ movie.title }}</h2>
+                <p>{{ movie.overview }}</p>
+            </div>
         </div>
+        
         <FooterComponentVue />
     </main>
 </template>
@@ -53,9 +62,33 @@ p {
     margin-top: 5%;
 }
 
+h2 {
+    font-size: xx-large;
+    color: black;
+    margin-bottom: 10%;
+}
+
 main {
     width: 100%;
     height: 100%;
+}
+
+.movie {
+    width: 90%;
+    display: flex;
+    text-align: center;
+    margin-top: 3%;
+}
+
+.movieInfo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+}
+
+img {
+    width: 350px;
+    margin-left: 3%;
 }
 
 </style>
