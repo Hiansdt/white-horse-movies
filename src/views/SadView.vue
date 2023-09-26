@@ -1,6 +1,5 @@
 <script setup>
 import FooterComponentVue from '../components/FooterComponent.vue';
-import { RouterLink } from 'vue-router';
 import { ref, onMounted } from 'vue'
 import quotesApi from '../api/quotes';
 import moviesApi from '../api/movies';
@@ -29,7 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main>
+    <main v-if="movieImages">
         <div class="quoteContainer">
             <h1 v-if="quote">
                 Here's a quote from {{ quote[0].author }} to hype you up:
@@ -51,67 +50,86 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        <hr>
         <FooterComponentVue class="footer"/>
     </main>
 </template>
 
 <style scoped>
 
-.quoteContainer {
+main{
     background-color: #005f66;
     color: white;
+    height: fit-content;
+}
+
+.quoteContainer{
     width: 100%;
+    height: 18%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+
+.quote{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     text-align: center;
-    padding: 1%;
 }
 
-hr {
-    background-color: white;
-    color: white;
-}
-
-.movieContainer {
-    background-color: #005f66;
+.movieContainer{
     width: 100%;
-    padding: 1%;
-    height: 75vh;
-    text-align: center;
-    color: white;
-}
-
-p {
-    font-size: larger;
-    text-align: center;
-}
-
-h2 {
-    font-size: xx-large;
-    color: rgb(255, 255, 255);
-    margin-bottom: 10%;
-}
-
-main {
-    width: 99%;
-    height: 99%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2%;
 }
 
 .movie {
-    width: 90%;
+    padding: 1%;
     display: flex;
-    text-align: center;
-    margin-top: 3%;
 }
 
-.movieInfo {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10%;
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1%;
 }
 
 img {
-    width: 415px;
-    margin-left: 3%;
+    margin-top: -2%;
+    width: 30%;
+    margin-right: 5%;
 }
 
+.movieInfo {
+    position: relative;
+    top: -45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.movieInfo > p {
+    width: 80%;
+}
+
+.recommendation {
+    margin-bottom: 4%;
+}
+
+.footer > button {
+    color: white;
+    background-color: aqua;
+}
 </style>

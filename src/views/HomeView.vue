@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
   <div :class="mainBackground !== '' ? `background ${mainBackground}` : `background`"></div>
-  <main :class="mainBackground !== '' ? 'whiteMain' : null">
+  <main :class="mainBackground !== '' ? 'whiteMain' : null" v-if="dailyQuote">
     <header>
       <h1>How are you feeling right now?</h1>
       <hr>
@@ -54,7 +54,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: fit-content;
   width: 99.9%;
   padding: 0;
   margin: 0;

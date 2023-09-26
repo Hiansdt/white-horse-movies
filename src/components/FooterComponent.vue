@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, ref, defineProps, computed} from 'vue'
+import { defineProps, computed} from 'vue'
 
 const props = defineProps({
   currentHover: String
@@ -34,8 +34,8 @@ const currentHover = computed(() => props.currentHover)
 }
 
 footer {
-  position: absolute;
-  bottom: 5px;
+  position: relative;
+  bottom: 0px;
   width: 100%;
   height: 5vh;
   display: flex;
@@ -67,6 +67,7 @@ button {
   font-size: small;
   cursor: pointer;
   margin-left: 2%;
+  color: rgb(0, 0, 0);
   font-family: "Rajdhani",Helvetica;
 }
 
