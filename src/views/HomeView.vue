@@ -151,6 +151,7 @@ a {
 
 .hovered > button {
  color: white;
+ transition: all 0.35s ease-in-out;
 }
 
 h1 {

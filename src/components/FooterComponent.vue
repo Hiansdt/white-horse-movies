@@ -34,7 +34,7 @@ const currentHover = computed(() => props.currentHover)
 }
 
 footer {
-  position: relative;
+  position: absolute;
   bottom: 0px;
   width: 100%;
   height: 5vh;

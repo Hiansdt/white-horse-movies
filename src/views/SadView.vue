@@ -7,17 +7,20 @@ import moviesApi from '../api/movies';
 const QuotesApi = new quotesApi();
 const MoviesApi = new moviesApi();
 
-const quote = ref()
+const quote = ref();
 
-const movie = ref()
+const movie = ref();
 
-const movieImages = ref()
+const movieImages = ref();
+
+const movieTrailer = ref();
 
 async function getMovieAndQuote() {
     quote.value = await QuotesApi.getQuotes('happiness');
-    movie.value =  await MoviesApi.getMovie();
+    movie.value = await MoviesApi.getMovie();
     movie.value = movie.value.results[(Math.random() * movie.value.results.length).toFixed(0)];
     movieImages.value = await MoviesApi.getMovieImage(movie.value.id)
+    movieTrailer.value = await MoviesApi.getMovieTrailer(movie.value.id)
     console.log(movie.value)
 }
 
@@ -43,26 +46,25 @@ onMounted(() => {
                 And here's a movie recommendation for you:
             </h1>
             <div class="movie" v-if="movieImages">
-                <img :src="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="">
-                <div class="movieInfo">
-                    <h2 class="title">{{ movie.title }}</h2>
-                    <p>{{ movie.overview }}</p>
+                <h2 class="title">{{ movie.title }}</h2>
+                <div class="imageTrailer">
+                    <img :src="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="">
                 </div>
+                <p>{{ movie.overview }}</p>
             </div>
         </div>
-        <FooterComponentVue class="footer"/>
+        <FooterComponentVue class="hovered" />
     </main>
 </template>
 
 <style scoped>
-
-main{
+main {
     background-color: #005f66;
     color: white;
     height: fit-content;
 }
 
-.quoteContainer{
+.quoteContainer {
     width: 100%;
     height: 18%;
     display: flex;
@@ -72,7 +74,7 @@ main{
     margin-bottom: 1%;
 }
 
-.quote{
+.quote {
     width: 50%;
     height: 50%;
     display: flex;
@@ -83,7 +85,7 @@ main{
     text-align: center;
 }
 
-.movieContainer{
+.movieContainer {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -95,6 +97,15 @@ main{
 .movie {
     padding: 1%;
     display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.movie > p {
+    width: 60%;
+    margin-left: 20%;
 }
 
 .title {
@@ -103,33 +114,25 @@ main{
     margin-bottom: 1%;
 }
 
+.imageTrailer {
+    margin-bottom: 3%;
+}
+
 img {
-    margin-top: -2%;
-    width: 30%;
-    margin-right: 5%;
-}
-
-.movieInfo {
-    position: relative;
-    top: -45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-.movieInfo > p {
-    width: 80%;
+    width: 20%;
 }
 
 .recommendation {
-    margin-bottom: 4%;
+    margin-bottom: 3%;
+    margin-top: 4%;
 }
 
-.footer > button {
-    color: white;
+.hovered>button {
+    color: rgb(255, 255, 255);
     background-color: aqua;
+}
+
+.hovered {
+    position: relative;
 }
 </style>
