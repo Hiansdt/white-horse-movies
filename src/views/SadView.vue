@@ -15,13 +15,33 @@ const movieImages = ref();
 
 const movieTrailer = ref();
 
+const genres = ref()
+
+const movieGenres = ref([])
+
 async function getMovieAndQuote() {
     quote.value = await QuotesApi.getQuotes('happiness');
     movie.value = await MoviesApi.getMovie();
     movie.value = movie.value.results[(Math.random() * movie.value.results.length).toFixed(0)];
-    movieImages.value = await MoviesApi.getMovieImage(movie.value.id)
     movieTrailer.value = await MoviesApi.getMovieTrailer(movie.value.id)
+    movieImages.value = await MoviesApi.getMovieImage(movie.value.id)
+    genres.value = await MoviesApi.getGenres()
     console.log(movie.value)
+    console.log(genres.value)
+
+    for (let video of movieTrailer.value.results) {
+        if (video.type === 'Trailer') {
+            movieTrailer.value = video.key;
+        }
+    }
+
+    for (let genre of movie.value.genre_ids) {
+        for (let genreName of genres.value.genres) {
+            if (genre === genreName.id) {
+                movieGenres.value = [...movieGenres.value, genreName.name]
+            }
+        }
+    }
 }
 
 onMounted(() => {
@@ -47,9 +67,16 @@ onMounted(() => {
             </h1>
             <div class="movie" v-if="movieImages">
                 <h2 class="title">{{ movie.title }}</h2>
+                <div class="genres">
+                    <p v-for="genre, index of movieGenres">{{ genre }}</p>
+                </div>
                 <div class="imageTrailer">
                     <img :src="'https://image.tmdb.org/t/p/original' + movie.poster_path" alt="">
+                    <iframe :src="'https://www.youtube.com/embed/' + movieTrailer" title="YouTube video player" frameborder="0" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
+                <h2 class="synopsis">Synopsis</h2>
                 <p>{{ movie.overview }}</p>
             </div>
         </div>
@@ -74,6 +101,15 @@ main {
     margin-bottom: 1%;
 }
 
+.genres {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 15%;
+    margin-bottom: 1%;
+    gap: 2%;
+}
+
 .quote {
     width: 50%;
     height: 50%;
@@ -94,6 +130,14 @@ main {
     margin-bottom: 2%;
 }
 
+.synopsis {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 15%;
+    margin-bottom: 1%;
+}
+
 .movie {
     padding: 1%;
     display: flex;
@@ -105,21 +149,32 @@ main {
 
 .movie > p {
     width: 60%;
-    margin-left: 20%;
+    margin-left: 15%;
+    text-align: left;
 }
 
 .title {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: x-large;
+    font-weight: bolder;
     margin-bottom: 1%;
+    margin-left: 15%;
+    text-align: left;
 }
 
 .imageTrailer {
     margin-bottom: 3%;
+    gap: 10px;
 }
 
 img {
     width: 20%;
+    height: 100%;
+}
+
+iframe {
+    height: 100%;
+    width: 50%;
+    margin-left: 1%;
 }
 
 .recommendation {
