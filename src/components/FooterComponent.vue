@@ -30,16 +30,17 @@ const currentHover = computed(() => props.currentHover)
   width: 45px;
   height: 45px;
   cursor: pointer ;
-  transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-out;
 }
 
 footer {
   position: absolute;
-  bottom: 0px;
+  bottom: 5px;
   width: 100%;
   height: 5vh;
   display: flex;
   gap: 5%;
+  transition: all 0.35s ease-in-out;
 }
 
 .git:hover {

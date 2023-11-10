@@ -1,11 +1,9 @@
 <script setup>
 
-import { onMounted, ref, defineProps } from 'vue'
+import { onMounted, ref, watch} from 'vue'
 import { RouterLink } from 'vue-router';
 import quotesApi from '../api/quotes.js';
 import FooterComponentVue from '../components/FooterComponent.vue';
-
-const QuotesApi = new quotesApi();
 
 const dailyQuote = ref()
 
@@ -16,11 +14,11 @@ const mainBackground = ref('')
 const currentHover = ref('')
 
 async function getquotes() {
-  dailyQuote.value = await QuotesApi.getQuotes('happiness');
+  dailyQuote.value = await quotesApi.getQuotes('happiness');
 }
 
 onMounted(() => {
-  getquotes()
+  getquotes();
 })
 
 </script>
@@ -30,27 +28,26 @@ onMounted(() => {
   <main :class="mainBackground !== '' ? 'whiteMain' : null" v-if="dailyQuote">
     <header>
       <h1>How are you feeling right now?</h1>
-      <hr>
     </header>
-    <div class="dayQuote">
-      <br>
-      <div class="quoteAuthor" v-if="dailyQuote">
+    <div :class="`dayQuote ${mainBackground}quote`">
         <p>" {{ dailyQuote[0].quote }} " </p>
         <p>- {{ dailyQuote[0].author }}</p>
-      </div>
     </div>
     <div class="options">
-      <router-link :to="'/' + option.toLowerCase()" class="option optionGlow" :id="mainBackground == option ? 'current' : mainBackground == '' ? null : 'notCurrent'" v-for="option, index in options" :key="index" @mouseover="mainBackground = option, currentHover = option" @mouseleave="mainBackground = '', currentHover = ''">
-          <span>{{ option }}</span>
+      <router-link :to="'/' + option.toLowerCase()" class="option optionGlow"
+        :id="mainBackground == option ? 'current' : mainBackground == '' ? null : 'notCurrent'"
+        v-for="option, index in options" :key="index" @mouseover="mainBackground = option, currentHover = option"
+        @mouseleave="mainBackground = '', currentHover = ''">
+        <span>{{ option }}</span>
       </router-link>
     </div>
-  <footer-component-vue :class="currentHover !== '' ? 'hovered' : null" :currentHover="currentHover"/>
+    <footer-component-vue :class="(currentHover !== '' ? 'hovered footer' : 'footer')" :currentHover="currentHover" />
   </main>
 </template>
 
 <style>
 main {
-  transition: all 0.5s ease-out;
+  transition: all 0.35s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,7 +71,7 @@ main {
   z-index: -1;
   width: 100%;
   height: 100%;
-  transition: 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
 }
 
 @keyframes backgroundCircle {
@@ -110,48 +107,43 @@ a {
 }
 
 #notCurrent {
-   color: white;
-   border: 1px solid white;
+  color: white;
+  border: 1px solid white;
 }
 
 .ANGRY {
- color: white;
- background-color: rgb(134, 24, 24);
+  color: white;
+  background-color: rgb(134, 24, 24);
 }
 
 .ANXIOUS {
- color: white;
- background-color: rgb(48, 6, 95);
+  color: white;
+  background-color: rgb(48, 6, 95);
 }
 
 .SAD {
- color: white;
- background-color: rgb(24, 103, 134);
+  color: white;
+  background-color: rgb(24, 103, 134);
 }
 
 .UNMOTIVATED {
- color: white;
- background-color: rgb(70, 7, 7);
+  color: white;
+  background-color: rgb(70, 7, 7);
 }
 
 .BORED {
- color: white;
- background-color: rgb(21, 35, 54);
+  color: white;
+  background-color: rgb(21, 35, 54);
 }
 
 .HAPPY {
- color: rgb(255, 255, 255);
- background-color: #d49c00;
+  color: rgb(255, 255, 255);
+  background-color: #d49c00;
 }
 
 .EXCITED {
- color: white;
- background-color: rgb(194, 78, 0);
-}
-
-.hovered > button {
- color: white;
- transition: all 0.35s ease-in-out;
+  color: white;
+  background-color: rgb(194, 78, 0);
 }
 
 h1 {
@@ -180,25 +172,54 @@ p {
 .dayQuote {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
   margin-top: 2%;
   margin-bottom: 2%;
-}
-
-.dayQuote> :nth-child(2) {
-  display: flex;
+  width: 80%;
+  row-gap: 10px;
   text-align: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.dayQuote> :nth-child(2)> :nth-child(1) {
-  margin-right: 1%;
+  transition: all 0.35s ease-out;
+  background-color: rgb(235, 235, 235);
+  box-shadow: -15px -20px rgb(65, 65, 65);
 }
 
 hr {
   width: 100%;
+}
+
+.ANGRYquote {
+  background-color: rgb(158, 24, 24);
+  box-shadow: 15px 20px rgb(26, 0, 0);
+}
+
+.ANXIOUSquote {
+  background-color: rgb(69, 11, 136);
+  box-shadow: 15px 20px rgb(28, 0, 31);
+}
+
+.SADquote {
+  background-color: rgb(30, 126, 163);
+  box-shadow: 15px 20px rgb(0, 19, 32);
+}
+
+.UNMOTIVATEDquote {
+  background-color: rgb(94, 9, 9);
+  box-shadow: 15px 20px rgb(28, 0, 0);
+}
+
+.BOREDquote {
+  background-color: rgb(29, 49, 77);
+  box-shadow: 15px 20px rgb(0, 0, 0);
+}
+
+.HAPPYquote {
+  background-color: rgb(255, 166, 0);
+  box-shadow: 15px 20px rgb(34, 27, 0);
+}
+
+.EXCITEDquote {
+  background-color: rgb(219, 90, 4);
+  box-shadow: 15px 20px rgb(34, 27, 0);
 }
 
 .options {
@@ -230,7 +251,7 @@ hr {
   transition: all 0.35s ease-out;
 }
 
-.option > span {
+.option>span {
   display: flex;
   text-align: center;
   justify-content: center;
@@ -283,6 +304,18 @@ hr {
   animation: 1s infinite optionGlow7;
 }
 
+.footer>button:hover {
+  background-color: rgb(223, 223, 223);
+  box-shadow: 5px 5px #000000;
+}
+
+.footer>button {
+  transition: all 0.35s ease-in-out;
+}
+
+.hovered>button {
+  color: white;
+}
 
 @keyframes optionGlow3 {
   0% {
@@ -390,5 +423,4 @@ hr {
   100% {
     transform: scale(1.15);
   }
-}
-</style>
+}</style>

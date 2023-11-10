@@ -5,7 +5,7 @@ const auth = import.meta.env.VITE_API_KEY
 const auth_bearer = import.meta.env.VITE_API_BEARER
 
 const config = {headers: {accept: 'application/json', Authorization: `Bearer ${auth_bearer}`,}}
-export default class moviesApi {
+class moviesApi {
     async getMovie() {
         const { data } = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${auth}&with_genres=16/`)
         return data
@@ -23,3 +23,5 @@ export default class moviesApi {
         return data
     }
 }
+
+export default new moviesApi
