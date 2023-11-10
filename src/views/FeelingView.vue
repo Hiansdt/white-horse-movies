@@ -1,8 +1,8 @@
 <script setup>
 import FooterComponentVue from '../components/FooterComponent.vue';
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useFeelingStore } from '@/stores/feeling'
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const feelingStore = new useFeelingStore()
 
@@ -16,17 +16,9 @@ const movieImages = ref();
 
 const movieTrailer = ref();
 
-const genres = ref();
-
 const movieGenres = ref([])
 
 const currentRoute = ref(route.matched[0].name)
-
-const currentColors = ref({
-    background: '',
-    quoteBackground: '',
-    shadow: '',
-})
 
 feelingStore.feeling = currentRoute.value.toUpperCase()
 
@@ -45,12 +37,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <main v-if="movieImages">
+    <main v-if="movieImages" :style="`background-color:${feelingStore.background}`">
         <div class="quoteContainer">
             <h1 v-if="quote">
                 Here's a quote from {{ quote[0].author }} to hype you up:
             </h1>
-            <div v-if="quote" class="quote" :style="`background-color:${feelingStore.background}; box-shadow: 15px 20px ${feelingStore.shadow}`">
+            <div v-if="quote" class="quote" :style="`background-color:${feelingStore.quoteBackground}; box-shadow: 15px 20px ${feelingStore.shadow}`">
                 <p>" {{ quote[0].quote }} " </p>
             </div>
         </div>
@@ -58,7 +50,7 @@ onMounted(() => {
             <h1 v-if="quote" class="recommendation">
                 And here's a movie recommendation for you:
             </h1>
-            <div class="movie" v-if="movieImages">
+            <div class="movie" v-if="movieImages" :style="`background-color:${feelingStore.quoteBackground}; box-shadow: 15px 20px ${feelingStore.shadow}`">
                 <h2 class="title">{{ movie.title }}</h2>
                 <div class="genres">
                     <p v-for="genre, index of movieGenres" :key="index">{{ genre }}</p>
@@ -79,7 +71,6 @@ onMounted(() => {
 
 <style scoped>
 main {
-    background-color: #86ccd1;
     color: white;
     height: fit-content;
 }
@@ -113,9 +104,6 @@ main {
     justify-content: center;
     font-size: 1.5rem;
     text-align: center;
-    background-color: #4aa4aa;
-    box-shadow: 20px 15px #0d484d;
-
 }
 
 .movieContainer {
@@ -143,8 +131,6 @@ main {
     justify-content: center;
     align-content: center;
     width: 75%;
-    background-color: #4aa4aa;
-    box-shadow: 20px 15px #0d484d;
 }
 
 .movie > p {
@@ -185,12 +171,13 @@ iframe {
 }
 
 .hovered>:nth-last-child(n + 2):hover {
-    background-color: #4aa4aa;
-    box-shadow: 5px 5px #0d484d;
+    background-color: #ffffff0a;
+    box-shadow: 5px 5px #0e0e0e;
 }
 
 .hovered>:nth-last-child(n + 2) {
     color: white;
+    transition: all 0.35s ease-in-out;
 }
 
 .hovered {

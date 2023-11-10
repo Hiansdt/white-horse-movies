@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, ref, watch} from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router';
 import quotesApi from '../api/quotes.js';
 import FooterComponentVue from '../components/FooterComponent.vue';
