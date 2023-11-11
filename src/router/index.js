@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FeelingView from '../views/FeelingView.vue'
+import ApisView from '../views/ApisView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path:'/excited',
       name:'excited',
       component: FeelingView
+    },
+    {
+      path:'/Apis',
+      name:'Apis',
+      component: ApisView
     }
   ]
 })
