@@ -1,6 +1,6 @@
 <script setup>
 
-
+import { RouterLink } from 'vue-router';
 
 </script>
 
@@ -8,12 +8,16 @@
     <main>
         <h1>API's used:</h1>
         <div class="apis">
-            <div class="api">
-                <p>The Movie Database's API</p>
-            </div>
-            <div class="api">
-                <p>API Ninjas' Quotes API</p>
-            </div>
+            <a href="https://developer.themoviedb.org/docs" target="_blank" class="api">
+                <div class="">
+                    <p>The Movie Database's API</p>
+                </div>
+            </a>
+            <a href="https://api-ninjas.com/api/quotes" target="_blank" class="api">
+                <div class="">
+                    <p>API Ninjas' Quotes API</p>
+                </div>
+            </a>
         </div>
 </main></template>
 
@@ -46,14 +50,23 @@
         border-radius: 5px;
         background: url(../../public/rainbow1.jpg);
         background-size: cover;
-        filter: blur(1.5px);
         color: rgb(255, 255, 255);
+        transition: all 0.35s ease-in-out;
+        cursor: pointer;
+        box-shadow: 0px 0px rgba(0, 0, 0, 0.233);
+    }
+
+    .api:hover {
+        transform: translateY(-30px) translateX(-25px);
+        box-shadow: 25px 30px rgba(0, 0, 0, 0.233);
     }
 
     .api p {
         font-size: 1.5rem;
         font-weight: bolder;
-        filter: ;
+        background-color: rgba(0, 0, 0, 0.164);
+        padding: 10px;
+        color: white;
     }
 
 </style>
