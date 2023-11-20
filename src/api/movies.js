@@ -6,8 +6,8 @@ const auth_bearer = import.meta.env.VITE_API_BEARER
 
 const config = {headers: {accept: 'application/json', Authorization: `Bearer ${auth_bearer}`,}}
 class moviesApi {
-    async getMovie() {
-        const { data } = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${auth}&with_genres=16/`)
+    async getMovie(genre) {
+        const { data } = await axios.get(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genre}`, config)
         return data
     }
     async getMovieImage(movie_id) {

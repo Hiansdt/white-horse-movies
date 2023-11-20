@@ -42,7 +42,7 @@ export const useFeelingStore = defineStore('feeling', {
       shadow: 'rgb(0, 0, 0)',
     },
     happyColors: {
-      background: 'rgb(255, 255, 255)',
+      background: '#d49c00',
       quoteBackground: 'rgb(255, 166, 0)',
       shadow: 'rgb(34, 27, 0)',
     },
@@ -58,10 +58,10 @@ export const useFeelingStore = defineStore('feeling', {
       this.movieGenres = []
 
       if (this.feeling == 'SAD') {
-        const quoteData = await quotesApi.getQuotes('happiness')
+        const quoteData = await quotesApi.getQuotes('inspirational')
         this.quote = quoteData
 
-        const movieData = await moviesApi.getMovie()
+        const movieData = await moviesApi.getMovie(16)
         this.movie = movieData
 
         this.background = this.sadColors.background;
@@ -69,10 +69,10 @@ export const useFeelingStore = defineStore('feeling', {
         this.shadow = this.sadColors.shadow;
 
       } else if (this.feeling == 'ANGRY') {
-        const quoteData = await quotesApi.getQuotes('happiness')
+        const quoteData = await quotesApi.getQuotes('forgiveness')
         this.quote = quoteData
 
-        const movieData = await moviesApi.getMovie()
+        const movieData = await moviesApi.getMovie(35)
         this.movie = movieData
 
         this.background = this.angryColors.background;
@@ -80,10 +80,10 @@ export const useFeelingStore = defineStore('feeling', {
         this.shadow = this.angryColors.shadow;
 
       } else if (this.feeling == 'ANXIOUS') {
-        const quoteData = await quotesApi.getQuotes('happiness')
+        const quoteData = await quotesApi.getQuotes('funny')
         this.quote = quoteData
 
-        const movieData = await moviesApi.getMovie()
+        const movieData = await moviesApi.getMovie(53)
         this.movie = movieData
 
 
@@ -92,10 +92,10 @@ export const useFeelingStore = defineStore('feeling', {
         this.shadow = this.anxiousColors.shadow;
 
       } else if (this.feeling == 'UNMOTIVATED') {
-        const quoteData = await quotesApi.getQuotes('happiness')
+        const quoteData = await quotesApi.getQuotes('inspirational')
         this.quote = quoteData
 
-        const movieData = await moviesApi.getMovie()
+        const movieData = await moviesApi.getMovie(35)
         this.movie = movieData
 
         this.background = this.unmotivatedColors.background;
@@ -104,10 +104,10 @@ export const useFeelingStore = defineStore('feeling', {
 
 
       } else if (this.feeling == 'BORED') {
-        const quoteData = await quotesApi.getQuotes('happiness')
+        const quoteData = await quotesApi.getQuotes('humor')
         this.quote = quoteData
 
-        const movieData = await moviesApi.getMovie()
+        const movieData = await moviesApi.getMovie(12)
         this.movie = movieData
 
 
@@ -119,7 +119,7 @@ export const useFeelingStore = defineStore('feeling', {
         const quoteData = await quotesApi.getQuotes('happiness')
         this.quote = quoteData
 
-        const movieData = await moviesApi.getMovie()
+        const movieData = await moviesApi.getMovie(10402)
         this.movie = movieData
 
         this.background = this.happyColors.background;
@@ -128,10 +128,10 @@ export const useFeelingStore = defineStore('feeling', {
 
 
       } else if (this.feeling == 'EXCITED') {
-        const quoteData = await quotesApi.getQuotes('happiness')
+        const quoteData = await quotesApi.getQuotes('amazing')
         this.quote = quoteData
 
-        const movieData = await moviesApi.getMovie()
+        const movieData = await moviesApi.getMovie(878)
         this.movie = movieData
 
         this.background = this.excitedColors.background;

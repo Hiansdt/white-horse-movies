@@ -11,9 +11,8 @@ const currentHover = computed(() => props.currentHover)
 
 <template>
     <footer>
-      <button>Movies</button>
-      <button>API's</button>
-      <button>About</button>
+      <button @click="$router.push('apis')">API's</button>
+      <button @click="$router.push('about')">About</button>
       <a href="https://github.com/Hiansdt" :class="currentHover !== '' ? 'git white' : 'git dark'" target="_blank"></a>
     </footer>
 </template>
