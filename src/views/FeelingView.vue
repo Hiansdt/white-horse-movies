@@ -3,6 +3,9 @@ import FooterComponentVue from '../components/FooterComponent.vue';
 import { ref, onMounted } from 'vue'
 import { useFeelingStore } from '@/stores/feeling'
 import { useRoute } from 'vue-router';
+import Loading from 'vue-loading-overlay'
+
+const isLoading = ref(false)
 
 const feelingStore = new useFeelingStore()
 
@@ -24,20 +27,23 @@ feelingStore.feeling = currentRoute.value.toUpperCase()
 
 console.log(currentRoute.value.toUpperCase())
 
-onMounted(() => {
-    feelingStore.getInfo().then(() => {
+onMounted(async () => {
+    isLoading.value = true
+    await feelingStore.getInfo().then(() => {
         quote.value = feelingStore.quote;
         movie.value = feelingStore.movie;
         movieImages.value = feelingStore.image;
         movieTrailer.value = feelingStore.trailer;
         movieGenres.value = feelingStore.movieGenres;
     })
+    isLoading.value = false
 })
 
 </script>
 
 <template>
     <main v-if="movieImages" :style="`background-color:${feelingStore.background}`">
+        <loading v-model:active="isLoading" is-full-page />
         <div class="quoteContainer">
             <h1 v-if="quote">
                 Here's a quote from {{ quote[0].author }} to hype you up:

@@ -4,6 +4,9 @@ import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router';
 import quotesApi from '../api/quotes.js';
 import FooterComponentVue from '../components/FooterComponent.vue';
+import Loading from 'vue-loading-overlay'
+
+const isLoading = ref(true)
 
 const dailyQuote = ref()
 
@@ -14,7 +17,10 @@ const mainBackground = ref('')
 const currentHover = ref('')
 
 async function getquotes() {
-  dailyQuote.value = await quotesApi.getQuotes('happiness');
+  isLoading.value = true;
+  const response = await quotesApi.getQuotes('happiness')
+  dailyQuote.value = response
+  isLoading.value = false;
 }
 
 onMounted(() => {
@@ -42,6 +48,7 @@ onMounted(() => {
       </router-link>
     </div>
     <footer-component-vue :class="(currentHover !== '' ? 'hovered footer' : 'footer')" :currentHover="currentHover" />
+    <loading v-model:active="isLoading" is-full-page />
   </main>
 </template>
 

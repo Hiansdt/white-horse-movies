@@ -1,6 +1,9 @@
 <script setup>
+import { ref } from 'vue';
 
-import { RouterLink } from 'vue-router';
+import Loading from 'vue-loading-overlay'
+
+const isLoading = ref(false)
 
 </script>
 
@@ -19,6 +22,7 @@ import { RouterLink } from 'vue-router';
                 </div>
             </a>
         </div>
+        <loading v-model:active="isLoading" is-full-page />
 </main></template>
 
 <style>
